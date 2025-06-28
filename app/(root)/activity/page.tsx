@@ -1,4 +1,4 @@
-import { fetchUser, getNotifications } from "@/lib/actions/user.actions";
+import { fetchUser, getActivity } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,7 +9,7 @@ async function Page({ params }: { params: { id: string } }) {
     const userInfo = await fetchUser(user.id)
     if (!userInfo?.onboarded) redirect('/onboarding')
     // get notification
-    const activity = await getNotifications(userInfo._id)
+    const activity = await getActivity(userInfo._id)
     return (
         <section>
             <h1 className="mb-10 head-text">Activity</h1>

@@ -9,11 +9,9 @@ async function Page() {
     if (!userInfo?.onboarded) redirect('/onboarding');
     return (
         <>
-            <h1 className="head-text">Create thread</h1>
-            <PostThread userId= {userInfo._id} />
+            <h1 className="head-text">Create Postly</h1>
+            <PostThread userId= {userInfo._id.toString()} />
         </>
     )
 }
-
-
 export default Page;

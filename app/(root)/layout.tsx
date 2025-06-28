@@ -7,8 +7,8 @@ import { Inter } from "next/font/google"
 import { dark } from '@clerk/themes'
 import '../globals.css'
 export const metadata = {
-  title: "Threads-marcus-coder",
-  description: "Lets build thread"
+  title: "Postly",
+  description: "By Kaushalendra (marcus-coder)"
 }
 const inter = Inter({ subsets: ["latin"] })
 

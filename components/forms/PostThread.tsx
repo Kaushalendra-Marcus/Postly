@@ -18,8 +18,8 @@ import { ChangeEvent, useState } from 'react';
 import { Textarea } from '../ui/textarea';
 import { threadValidation } from '@/lib/validations/thread'
 import { createThread } from '@/lib/actions/thread.actions'
+import { useOrganization } from '@clerk/nextjs'
 
-// import { updateUser } from '@/lib/actions/user.actions';
 interface Props {
     user: {
         id: string;
@@ -32,15 +32,21 @@ interface Props {
     btnTitle: string;
 }
 
+
 function PostThread({ userId }: { userId: string }) {
     const router = useRouter();
     const pathname = usePathname();
+    const { organization } = useOrganization()
+    const ClerkcommunityId = organization?.id;
+
     const onSubmit = async (values: z.infer<typeof threadValidation>) => {
+        // { console.log("Community Id :::::::::::::::::::::::", organization); }
+        // { console.log("ClerkcommunityId :::::::::::::::::::::::", ClerkcommunityId); }
         await createThread({
             text: values.thread,
             author: userId,
-            communityId: null,
-            path: pathname
+            communityId: organization ? organization.id : null,
+            path: pathname,
         })
         router.push("/")
     }

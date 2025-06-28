@@ -116,6 +116,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                     )
                 }
               </FormLabel>
+              
               <FormControl className='flex-1 !text-gray-200 text-base-semibold'>
                 <Input
                   type='file'
@@ -123,9 +124,11 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                   placeholder='Upload an image'
                   className='account-form_image-input'
                   onChange={(e) => handleImage(e, field.onChange)} />
+                  
               </FormControl>
               <FormMessage />
             </FormItem>
+            
           )}
         />
         <FormField

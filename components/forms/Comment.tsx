@@ -39,7 +39,7 @@ const Comment = (
             await addCommentToThread(
                 threadId,
                 values.thread,
-                JSON.parse(currentUserId),
+                currentUserId,
                 pathname
             );
             form.reset(); // ✅ reset after successful submit

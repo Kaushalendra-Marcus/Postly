@@ -1,6 +1,6 @@
 "use server";
 
-import { FilterQuery, SortOrder } from "mongoose";
+import mongoose, { FilterQuery, SortOrder } from "mongoose";
 
 import Community from "../models/community.model";
 import Thread from "../models/thread.model";
@@ -15,44 +15,42 @@ export async function createCommunity(
   username: string,
   image: string,
   bio: string,
-  createdById: string // Change the parameter name to reflect it's an id
+  createdById: mongoose.Types.ObjectId | string
 ) {
   try {
-    connectToMDB()
+    await connectToMDB();
 
-    // Find the user with the provided unique id
-    const user = await User.findOne({ id: createdById });
-
-    if (!user) {
-      throw new Error("User not found"); // Handle the case if the user with the id is not found
-    }
+    // Check if community already exists
+    const existing = await Community.findOne({ id });
+    if (existing) return existing;
 
     const newCommunity = new Community({
       id,
       name,
-      username,
+      username: username || `${name.toLowerCase()}-community`,
       image,
       bio,
-      createdBy: user._id, // Use the mongoose ID of the user
+      createdBy: createdById,
+      members: [createdById] // Add creator as first member
     });
 
-    const createdCommunity = await newCommunity.save();
+    await newCommunity.save();
 
-    // Update User model
-    user.communities.push(createdCommunity._id);
-    await user.save();
+    // Update user's communities
+    await User.findByIdAndUpdate(createdById, {
+      $push: { communities: newCommunity._id }
+    });
 
-    return createdCommunity;
+    return newCommunity;
   } catch (error) {
-    // Handle any errors
-    console.error("Error creating community:", error);
+    console.error("Community creation failed:", error);
     throw error;
   }
 }
 
 export async function fetchCommunityDetails(id: string) {
   try {
-    connectToMDB()
+    await connectToMDB()
 
     const communityDetails = await Community.findOne({ id }).populate([
       "createdBy",
@@ -73,7 +71,7 @@ export async function fetchCommunityDetails(id: string) {
 
 export async function fetchCommunityPosts(id: string) {
   try {
-    connectToMDB()
+    await connectToMDB()
 
     const communityPosts = await Community.findById(id).populate({
       path: "threads",
@@ -116,7 +114,7 @@ export async function fetchCommunities({
   sortBy?: SortOrder;
 }) {
   try {
-    connectToMDB()
+    await connectToMDB()
 
     // Calculate the number of communities to skip based on the page number and page size.
     const skipAmount = (pageNumber - 1) * pageSize;
@@ -165,7 +163,7 @@ export async function addMemberToCommunity(
   memberId: string
 ) {
   try {
-    connectToMDB()
+    await connectToMDB()
 
     // Find the community by its unique id
     const community = await Community.findOne({ id: communityId });
@@ -207,7 +205,7 @@ export async function removeUserFromCommunity(
   communityId: string
 ) {
   try {
-    connectToMDB()
+    await connectToMDB()
 
     const userIdObject = await User.findOne({ id: userId }, { _id: 1 });
     const communityIdObject = await Community.findOne(
@@ -250,12 +248,13 @@ export async function updateCommunityInfo(
   image: string
 ) {
   try {
-    connectToMDB()
+    await connectToMDB()
 
     // Find the community by its _id and update the information
     const updatedCommunity = await Community.findOneAndUpdate(
       { id: communityId },
-      { name, username, image }
+      { name, username, image },
+      { new: true }
     );
 
     if (!updatedCommunity) {
@@ -272,7 +271,7 @@ export async function updateCommunityInfo(
 
 export async function deleteCommunity(communityId: string) {
   try {
-    connectToMDB()
+    await connectToMDB()
 
     // Find the community by its ID and delete it
     const deletedCommunity = await Community.findOneAndDelete({

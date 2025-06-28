@@ -21,22 +21,22 @@ async function Page({ params }: { params: { id: string } }) {
   return (
     <section>
       <h1 className="mb-10 head-text">Search</h1>
-      <div>
+
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
         {result.users.length === 0 ? (
-          <p className="flex flex-col mt-14 gap-9">No User found</p>
+          <p>No users found.</p>
         ) : (
-          <>
-            {result.users.map((person) => (
-              <UserCard
-                key={person.id}
-                id={person.id}
-                name={person.name}
-                username={person.username}
-                imgUrl={person.image}
-                personType='User' 
-                />
-            ))}
-          </>
+          result.users.map((person: any) => (
+            <UserCard
+              key={person.id}
+              id={person.id}
+              name={person.name}
+              username={person.username}
+              imgUrl={person.image}
+              personType="User"
+            />
+          ))
         )}
       </div>
     </section>

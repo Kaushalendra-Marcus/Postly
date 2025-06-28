@@ -4,8 +4,8 @@ import { dark } from '@clerk/themes'
 import '../globals.css'
 
 export const metadata = {
-  title: "Threads-marcus-coder",
-  description: "Let's build thread"
+  title: "Postly",
+  description: "By Kaushalendra (marcus-coder)"
 }
 const inter = Inter({ subsets: ["latin"] })
 export default function RootLayout({ children }: { children: React.ReactNode }) {
