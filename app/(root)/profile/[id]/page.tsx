@@ -11,6 +11,7 @@ import Link from "next/link";
 async function Page({ params }: { params: { id: string } }) {
     const user = await currentUser()
     if (!user) return null;
+    const loggedinUser = await user.id
     const { id } = await params;
     const userInfo = await fetchUser(id)
     if (!userInfo?.onboarded) redirect('/onboarding');
@@ -24,11 +25,13 @@ async function Page({ params }: { params: { id: string } }) {
                 imgUrl={userInfo.image}
                 bio={userInfo.bio}
             />
-            <Link href={`/profile/${id}/edit`} className="flex justify-center mt-4">
-                <Button className="px-6 py-2 font-semibold text-white transition-colors duration-200 rounded-full shadow-sm bg-primary-500 hover:bg-primary-600">
-                    Update Profile
-                </Button>
-            </Link>
+            {loggedinUser === userInfo.id && (
+                <Link href={`/profile/${id}/edit`} className="flex justify-center mt-4">
+                    <Button className="px-6 py-2 font-semibold text-white transition-colors duration-200 rounded-full shadow-sm bg-primary-500 hover:bg-primary-600">
+                        Update Profile
+                    </Button>
+                </Link>
+            )}
 
             <div className="mt-9">
                 <Tabs defaultValue="threads" className="w-full">

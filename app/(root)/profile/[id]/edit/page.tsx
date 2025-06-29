@@ -6,11 +6,15 @@ import { redirect } from "next/navigation";
 async function Page({ params }: { params: { id: string } }) {
   const user = await currentUser();
   if (!user) return null;
-    const {id} = await params
+
+  const loggedInUserId = user.id;
+  const { id } = params;
+
   const userInfo = await fetchUser(id);
 
-  if (!userInfo) {
-    redirect("/"); 
+
+  if (!userInfo || userInfo.id !== loggedInUserId) {
+    redirect("/"); // unauthorized
   }
 
   const userData = {
@@ -30,6 +34,7 @@ async function Page({ params }: { params: { id: string } }) {
       </section>
     </main>
   );
+
 }
 
 export default Page;
