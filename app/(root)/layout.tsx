@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs"
 import { Inter } from "next/font/google"
 import { dark } from '@clerk/themes'
 import '../globals.css'
+import { Analytics } from "@vercel/analytics/next"
 export const metadata = {
   title: "Postly",
   description: "By Kaushalendra (marcus-coder)"
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <RightSidebar />
           </main>
           <Bottombar />
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
