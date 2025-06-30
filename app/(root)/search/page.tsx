@@ -16,7 +16,7 @@ async function Page({ params }: { params: { id: string } }) {
     userId: user.id,
     searchString: "",
     pageNumber: 1,
-    pageSize: 20
+    pageSize: 40
   })
   return (
     <section>
