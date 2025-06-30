@@ -16,13 +16,11 @@ async function Page({ params }: { params: { id: string } }) {
     userId: user.id,
     searchString: "",
     pageNumber: 1,
-    pageSize: 40
+    pageSize: 600
   })
   return (
     <section>
       <h1 className="mb-10 head-text">Search</h1>
-
-
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
         {result.users.length === 0 ? (
           <p>No users found.</p>
