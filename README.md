@@ -205,4 +205,3 @@ Postly is built as a learning-focused yet production-ready project to:
 
 ---
 
-*Note: Replace the placeholder image URLs with actual screenshots of your application. You can host images in your repository and reference them using relative paths like `./screenshots/web-interface.png` or use a service like Imgur or Cloudinary.*
