@@ -1,4 +1,4 @@
-# Postly
+## Postly
 
 Postly is a modern social media platform built to enable seamless sharing, interaction, and connection. It is designed as a full-stack learning project with production-grade tools, focusing on performance, scalability, authentication, and clean UI/UX.
 
