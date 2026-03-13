@@ -1,12 +1,11 @@
-
 import { formatDateString } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import LikeButon from "../shared/LikeButon";
 import ShareButton from "../shared/ShareButton";
 import { DeleteButton } from "../shared/DeleteButton";
-import LinkPreview from "../shared/LinkPreview";
 import ThreadContent from "../shared/ThreadContent";
+
 interface Props {
     key: string;
     id: string;
@@ -30,11 +29,11 @@ interface Props {
         };
     }[];
     isComment?: boolean;
-    likes: string[]
+    likes: string[];
+    views?: number;
 }
 
 const ThreadCard = ({
-    key,
     id,
     currentUserId,
     parentId,
@@ -44,20 +43,17 @@ const ThreadCard = ({
     createdAt,
     comments,
     isComment,
-    likes
+    likes,
+    views = 0,
 }: Props) => {
     return (
         <article
-            className={`flex flex-col w-full rounded-xl ${isComment ? "px-0 xs:px-7 mt-3" : "p-4 sm:p-7 bg-dark-2"
-                }`}
+            className={`flex flex-col w-full rounded-xl ${isComment ? "px-0 xs:px-7 mt-3" : "p-4 sm:p-7 bg-dark-2"}`}
         >
             <div className="flex items-start justify-between">
                 <div className="flex flex-row flex-1 w-full gap-3 sm:gap-4">
                     <div className="flex flex-col items-center">
-                        <Link
-                            href={`/profile/${author.id}`}
-                            className="relative w-10 h-10 sm:h-11 sm:w-11"
-                        >
+                        <Link href={`/profile/${author.id}`} className="relative w-10 h-10 sm:h-11 sm:w-11">
                             <Image
                                 src={author.image}
                                 alt="Profile Image"
@@ -81,30 +77,44 @@ const ThreadCard = ({
                                 currentUserId={currentUserId.toString()}
                             />
                         </div>
-                        <ThreadContent content={content} />
+
+                        {/* Clickable content area */}
+                        <Link href={`/thread/${id}`}>
+                            <ThreadContent content={content} />
+                        </Link>
+
                         <p className="text-[12px] text-gray-1">{formatDateString(createdAt)}</p>
+
                         <div className="flex flex-col gap-3 mt-5">
-                            <div className="flex gap-3">
-                                <div className="flex items-center gap-1 cursor-pointer">
-                                    <LikeButon
-                                        threadId={id.toString()}
-                                        likes={likes}
-                                        likedUser={currentUserId.toString()}
-                                    />
-                                </div>
+                            <div className="flex items-center gap-3">
+                                <LikeButon
+                                    threadId={id.toString()}
+                                    likes={likes}
+                                    likedUser={currentUserId.toString()}
+                                />
                                 <Link href={`/thread/${id}`}>
                                     <Image
                                         src="/assets/reply.svg"
-                                        alt="heart"
+                                        alt="reply"
                                         width={24}
                                         height={24}
                                         className="object-contain cursor-pointer"
                                     />
                                 </Link>
-                                <ShareButton
-                                    content={content}
-                                    id={id.toString()}
-                                />
+                                <ShareButton content={content} id={id.toString()} />
+
+                                {/* Views */}
+                                {!isComment && (
+                                    <div className="flex items-center gap-1 ml-auto">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-1">
+                                            <path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/>
+                                        </svg>
+                                        <p className="text-[12px] text-gray-1">
+                                            {views >= 1000 ? `${(views / 1000).toFixed(1)}K` : views}
+                                        </p>
+                                    </div>
+                                )}
+
                                 {isComment && comments.length > 0 && (
                                     <Link href={`/thread/${id}`}>
                                         <p className="mt-1 text-subtle-medium text-gray-1">
@@ -116,12 +126,10 @@ const ThreadCard = ({
                         </div>
                     </div>
                 </div>
-
-
             </div>
+
             {!isComment && comments.length > 0 && (
                 <div className="flex items-center gap-2 mt-4">
-                    {/* Show only first 3 comment profile images */}
                     <div className="flex -space-x-2">
                         {comments.slice(0, 3).map((comment, index) => (
                             <Image
@@ -134,7 +142,6 @@ const ThreadCard = ({
                             />
                         ))}
                     </div>
-                    {/* Show count of total comments */}
                     <Link href={`thread/${id}`}>
                         <p className="text-subtle-medium text-gray-1">
                             {comments.length} {comments.length === 1 ? "reply" : "replies"}
@@ -142,7 +149,6 @@ const ThreadCard = ({
                     </Link>
                 </div>
             )}
-
         </article>
     );
 };
