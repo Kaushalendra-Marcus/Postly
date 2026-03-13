@@ -26,6 +26,7 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
           select: "_id name parentId image",
         },
       })
+      .select("text author community createdAt parentId children likes views")
       .lean()
       .exec(),
     Thread.countDocuments({ parentId: { $in: [null, undefined] } }),
