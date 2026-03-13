@@ -7,18 +7,35 @@ import { Inter } from "next/font/google"
 import { dark } from '@clerk/themes'
 import '../globals.css'
 import { Analytics } from "@vercel/analytics/next"
-export const metadata = {
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
   title: "Postly",
-  description: "By Kaushalendra (marcus-coder)"
+  description: "By Kaushalendra (marcus-coder)",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Postly",
+  },
+  themeColor: "#877EFF",
 }
+
 const inter = Inter({ subsets: ["latin"] })
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider appearance={{
-      baseTheme: dark,
-    }}>
+    <ClerkProvider appearance={{ baseTheme: dark }}>
       <html lang="en">
+        <head>
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+          <meta name="apple-mobile-web-app-title" content="Postly" />
+          <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+          <meta name="theme-color" content="#877EFF" />
+        </head>
         <body className={`${inter.className}`}>
           <Topbar />
           <main className="flex">
