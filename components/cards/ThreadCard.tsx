@@ -5,6 +5,7 @@ import Link from "next/link";
 import LikeButon from "../shared/LikeButon";
 import ShareButton from "../shared/ShareButton";
 import { DeleteButton } from "../shared/DeleteButton";
+import LinkPreview from "../shared/LinkPreview";
 interface Props {
     key: string;
     id: string;
@@ -79,7 +80,20 @@ const ThreadCard = ({
                                 currentUserId={currentUserId.toString()}
                             />
                         </div>
-                        <p className="mt-2 text-small-regular text-light-2">{content}</p>
+                        <p className="mt-2 text-small-regular text-light-2">
+                            {content.split(/(https?:\/\/[^\s]+)/g).map((part, i) =>
+                                /^https?:\/\//.test(part) ? (
+                                    <a key={i} href={part} target="_blank" rel="noopener noreferrer"
+                                        className="text-blue-400 hover:underline break-all"
+                                        onClick={(e) => e.stopPropagation()}>
+                                        {part}
+                                    </a>
+                                ) : <span key={i}>{part}</span>
+                            )}
+                        </p>
+                        {/https?:\/\/[^\s]+/.test(content) && (
+                            <LinkPreview url={content.match(/https?:\/\/[^\s]+/)![0]} />
+                        )}
                         <p className="text-[12px] text-gray-1">{formatDateString(createdAt)}</p>
                         <div className="flex flex-col gap-3 mt-5">
                             <div className="flex gap-3">
