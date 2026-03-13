@@ -1,6 +1,6 @@
 import ThreadCard from "@/components/cards/ThreadCard";
 import Comment from "@/components/forms/Comment";
-import { fetchThreadById } from "@/lib/actions/thread.actions";
+import { fetchThreadById, incrementViews } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
@@ -19,11 +19,20 @@ const Page = async ({ params }: ThreadPageProps) => {
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
-  const thread = await fetchThreadById(id);
+  const [thread] = await Promise.all([
+    fetchThreadById(id),
+    incrementViews(id),   // view count increment on open
+  ]);
+
   if (!thread) return <p>Thread not found</p>;
 
   return (
     <section className="relative">
+      {/* Views count */}
+      <div className="flex justify-end mb-2">
+        <p className="text-[12px] text-gray-1">👁 {thread.views ?? 0} views</p>
+      </div>
+
       <div>
         <ThreadCard
           key={thread._id}
@@ -84,7 +93,7 @@ const Page = async ({ params }: ThreadPageProps) => {
             createdAt={child.createdAt}
             comments={child.children}
             isComment
-            likes={thread.likes?.map((like: any) => like.toString()) || []}
+            likes={child.likes?.map((like: any) => like.toString()) || []}
           />
         ))}
       </div>

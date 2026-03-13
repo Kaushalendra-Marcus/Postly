@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const threadSchema = new mongoose.Schema({
     text: { type: String, required: true },
     author: {
@@ -25,7 +24,11 @@ const threadSchema = new mongoose.Schema({
     }],
     likes: [{
         type: String
-    }]
+    }],
+    views: {
+        type: Number,
+        default: 0
+    }
 })
 
 const Thread = mongoose.models.Thread || mongoose.model('Thread', threadSchema)

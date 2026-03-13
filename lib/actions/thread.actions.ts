@@ -223,3 +223,11 @@ export async function addLike(
     throw new Error(`Error in adding like : ${error.message}`);
   }
 }
+export async function incrementViews(threadId: string) {
+  try {
+    await connectToMDB();
+    await Thread.findByIdAndUpdate(threadId, { $inc: { views: 1 } });
+  } catch (error) {
+    console.error("Error incrementing views:", error);
+  }
+}
