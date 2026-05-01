@@ -1,149 +1,117 @@
-## Postly
+<div align="center">
 
-Postly is a modern social media platform built to enable seamless sharing, interaction, and connection. It is designed as a full-stack learning project with production-grade tools, focusing on performance, scalability, authentication, and clean UI/UX.
+<img src="https://img.shields.io/badge/Status-Live-brightgreen?style=flat-square" />
+<img src="https://img.shields.io/badge/Users-150%2B-blue?style=flat-square" />
+<img src="https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js" />
+<img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript" />
+<img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" />
 
-The project is live, actively used, and continuously evolving.
+# Postly
+
+**A modern social platform built for seamless sharing, interaction, and connection.**
+
+[Live App](https://postly-lake.vercel.app/) · [GitHub](https://github.com/Kaushalendra-Marcus/Postly) · [Report Bug](https://github.com/Kaushalendra-Marcus/Postly/issues) · [Request Feature](https://github.com/Kaushalendra-Marcus/Postly/issues)
+
+</div>
+
+---
+
+## Overview
+
+Postly is a full-stack social media platform built with production-grade tooling. Users can create posts, interact with others, upload media, and build their presence — all wrapped in a fast, responsive, accessible interface.
+
+Currently live with **150+ active users**, real-time-like interactions, and continuous feature development.
+
+---
 
 ## Screenshots
 
-### Web Interface
-<img width="1919" height="978" alt="image" src="https://github.com/user-attachments/assets/07bdf54e-3b30-485c-839f-2e70a4d72186" />
+| Web | Mobile | Profile |
+|-----|--------|---------|
+| ![Web](https://github.com/user-attachments/assets/07bdf54e-3b30-485c-839f-2e70a4d72186) | ![Mobile](https://github.com/user-attachments/assets/3ddc0da3-5a71-4ac9-afd2-7b097667aee4) | ![Profile](https://github.com/user-attachments/assets/31f5558a-428e-4d65-8b8e-d693d6720119) |
 
-### Mobile View
-<img width="420" height="970" alt="image" src="https://github.com/user-attachments/assets/3ddc0da3-5a71-4ac9-afd2-7b097667aee4" />
-
-### Profile
-<img width="461" height="973" alt="image" src="https://github.com/user-attachments/assets/31f5558a-428e-4d65-8b8e-d693d6720119" />
-
-## Live Links
-
-- **Web App**: https://postly-lake.vercel.app/
-- **GitHub Repository**: https://github.com/Kaushalendra-Marcus/Postly
-
-## Current Status
-
-- Live in production
-- 150+ active users
-- Multiple posts created by users
-- Authentication, posting, uploads, and analytics fully functional
+---
 
 ## Features
 
 ### Authentication
-- Secure authentication using Clerk
-- Supports Google and GitHub OAuth
-- Session handling and protected routes
+- Secure sign-in via **Clerk** with Google and GitHub OAuth
+- Protected routes and persistent session handling
 
-### Social Features
-- Create and publish posts
-- Like post of others
-- Reply on other's post
-- Sharing option, share to the world
-- View posts from other users
-- User profiles with authentication-based identity
-- Real-time-like smooth interactions using modern UI patterns
+### Social
+- Create, publish, like, and reply to posts
+- Share posts externally
+- View profiles and posts from other users
+- Smooth, real-time-like interactions
 
-### Media Uploads
-- File and image uploads using UploadThing
-- Secure and scalable upload handling
+### Media
+- Image and file uploads via **UploadThing**
+- Secure, scalable upload pipeline
 
-### UI and UX
-- Clean and modern interface built with Shadcn UI
-- Fully responsive design
-- Smooth animations using Framer Motion
-- Accessible components powered by Radix UI
+### UI / UX
+- Clean interface built with **Shadcn UI** and **Radix UI**
+- Fully responsive across all screen sizes
+- Fluid animations powered by **Framer Motion**
+- Accessible components throughout
 
 ### Analytics
-- Integrated Vercel Analytics
-- Privacy-friendly insights on usage and performance
+- Privacy-friendly usage insights via **Vercel Analytics**
+
+---
 
 ## Tech Stack
 
-### Frontend
-- Next.js 15
-- React 19
-- TypeScript
-- Tailwind CSS
-- Shadcn UI
-- Radix UI
-- Framer Motion
-- Lucide React
-- React Icons
+| Layer | Technologies |
+|-------|-------------|
+| **Frontend** | Next.js 15, React 19, TypeScript, Tailwind CSS |
+| **UI Components** | Shadcn UI, Radix UI, Framer Motion, Lucide React |
+| **Backend** | Next.js App Router, Server Actions, API Routes |
+| **Database** | MongoDB, Mongoose |
+| **Auth** | Clerk, OAuth (Google, GitHub) |
+| **Forms** | React Hook Form, Zod |
+| **Uploads** | UploadThing |
+| **Analytics** | Vercel Analytics |
 
-### Backend
-- Next.js App Router
-- MongoDB
-- Mongoose
-- Server Actions and API Routes
+---
 
-### Authentication
-- Clerk
-- OAuth (Google, GitHub)
+## Project Structure
 
-### Forms and Validation
-- React Hook Form
-- Zod
-
-### Uploads
-- UploadThing
-
-### Analytics
-- Vercel Analytics
-
-## Dependencies
-
-### Main Dependencies
 ```
-@clerk/nextjs
-@clerk/themes
-@hookform/resolvers
-@radix-ui/react-label
-@radix-ui/react-slot
-@radix-ui/react-tabs
-@uploadthing/react
-@vercel/analytics
-class-variance-authority
-clsx
-framer-motion
-lucide-react
-mongoose
-next
-react
-react-dom
-react-hook-form
-react-icons
-svix
-tailwind-merge
-tailwindcss-animate
-uploadthing
-zod
+├── app/          # Next.js App Router — pages and layouts
+├── components/   # Reusable UI components
+├── lib/          # Utility functions and helpers
+├── models/       # Mongoose schemas and models
+├── actions/      # Server actions for backend logic
+└── styles/       # Global styles and Tailwind config
 ```
 
-### Development Dependencies
-```
-@tailwindcss/postcss
-@types/node
-@types/react
-@types/react-dom
-autoprefixer
-postcss
-tailwindcss
-typescript
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- MongoDB URI (Atlas or local)
+- Clerk account
+- UploadThing account
+
+### Local Setup
+
+**1. Clone the repository**
+```bash
+git clone https://github.com/Kaushalendra-Marcus/Postly.git
+cd Postly
 ```
 
-## Project Structure (High Level)
-```
-app/           – Next.js App Router pages and layouts
-components/    – Reusable UI components
-lib/           – Utility functions and helpers
-models/        – Mongoose schemas and models
-actions/       – Server actions for backend logic
-styles/        – Global styles and Tailwind configuration
+**2. Install dependencies**
+```bash
+npm install
 ```
 
-## Environment Variables
+**3. Configure environment variables**
 
-To run this project locally, you need the following environment variables:
+Create a `.env.local` file in the root directory:
 
 ```env
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
@@ -157,51 +125,39 @@ UPLOADTHING_APP_ID=
 NEXT_PUBLIC_APP_URL=
 ```
 
-You may also need additional Clerk webhook or OAuth configuration depending on your setup.
+**4. Start the development server**
+```bash
+npm run dev
+```
 
-## Getting Started Locally
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Kaushalendra-Marcus/Postly.git
-   cd Postly
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Configure environment variables**
-   Create a `.env.local` file and add the required keys.
-
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-
-5. **Open the app**
-   Visit `http://localhost:3000` in your browser.
-
-## Learning Goals Behind Postly
-
-Postly is built as a learning-focused yet production-ready project to:
-
-- Understand modern Next.js App Router patterns
-- Implement real authentication using OAuth
-- Design scalable MongoDB schemas
-- Build accessible UI with Radix and Shadcn
-- Handle uploads and analytics in real-world apps
-- Write clean, maintainable TypeScript code
-
-## Future Improvements
-
-- Likes, comments, and post interactions
-- Follow system
-- Notifications
-- Better post discovery
-- Performance optimizations
-- Progressive Web App improvements
+Visit `http://localhost:3000`
 
 ---
 
+## Roadmap
+
+- [ ] Follow / unfollow system
+- [ ] Notifications
+- [ ] Post discovery and explore feed
+- [ ] Progressive Web App (PWA) support
+- [ ] Performance optimizations
+
+---
+
+## Contributing
+
+Contributions are welcome. Please open an issue first to discuss what you'd like to change, then submit a pull request against the `main` branch.
+
+---
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+<div align="center">
+
+Built by [Kaushalendra Singh](https://github.com/Kaushalendra-Marcus)
+
+</div>
